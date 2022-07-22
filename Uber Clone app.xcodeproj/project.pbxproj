@@ -1,0 +1,474 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2088AFED28879DA7001034D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088AFEC28879DA7001034D1 /* AppDelegate.swift */; };
+		2088AFEF28879DA7001034D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088AFEE28879DA7001034D1 /* SceneDelegate.swift */; };
+		2088AFF428879DA7001034D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2088AFF228879DA7001034D1 /* Main.storyboard */; };
+		2088AFF628879DA8001034D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2088AFF528879DA8001034D1 /* Assets.xcassets */; };
+		2088AFF928879DA8001034D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2088AFF728879DA8001034D1 /* LaunchScreen.storyboard */; };
+		2088B00728879F33001034D1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088B00628879F33001034D1 /* LoginController.swift */; };
+		2088B0092887A700001034D1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088B0082887A700001034D1 /* Extensions.swift */; };
+		2088B00B2889B0E4001034D1 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088B00A2889B0E4001034D1 /* RegistrationController.swift */; };
+		2088B00F2889D69F001034D1 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088B00E2889D69F001034D1 /* AuthButton.swift */; };
+		2088B0112889E3A5001034D1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2088B0102889E3A5001034D1 /* GoogleService-Info.plist */; };
+		2088B0142889E524001034D1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2088B0132889E524001034D1 /* FirebaseAuth */; };
+		2088B0162889E524001034D1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2088B0152889E524001034D1 /* FirebaseFirestore */; };
+		2088B0192889F5D3001034D1 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2088B0182889F5D3001034D1 /* FirebaseDatabase */; };
+		2088B01B2889FB79001034D1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088B01A2889FB78001034D1 /* HomeController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2088AFE928879DA7001034D1 /* Uber Clone app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Uber Clone app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2088AFEC28879DA7001034D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2088AFEE28879DA7001034D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		2088AFF328879DA7001034D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2088AFF528879DA8001034D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2088AFF828879DA8001034D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2088AFFA28879DA8001034D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2088B00628879F33001034D1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		2088B0082887A700001034D1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2088B00A2889B0E4001034D1 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		2088B00E2889D69F001034D1 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
+		2088B0102889E3A5001034D1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		2088B01A2889FB78001034D1 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2088AFE628879DA7001034D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2088B0192889F5D3001034D1 /* FirebaseDatabase in Frameworks */,
+				2088B0142889E524001034D1 /* FirebaseAuth in Frameworks */,
+				2088B0162889E524001034D1 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2088AFE028879DA7001034D1 = {
+			isa = PBXGroup;
+			children = (
+				2088AFEB28879DA7001034D1 /* Uber Clone app */,
+				2088AFEA28879DA7001034D1 /* Products */,
+				2088B0172889F5D3001034D1 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2088AFEA28879DA7001034D1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2088AFE928879DA7001034D1 /* Uber Clone app.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2088AFEB28879DA7001034D1 /* Uber Clone app */ = {
+			isa = PBXGroup;
+			children = (
+				2088B00028879DCF001034D1 /* Model */,
+				2088B00328879DEA001034D1 /* View */,
+				2088B00128879DE1001034D1 /* Controller */,
+				2088B00528879DEE001034D1 /* Utilities */,
+				2088B00428879DEC001034D1 /* Service */,
+				2088AFEC28879DA7001034D1 /* AppDelegate.swift */,
+				2088AFEE28879DA7001034D1 /* SceneDelegate.swift */,
+				2088AFF228879DA7001034D1 /* Main.storyboard */,
+				2088AFF528879DA8001034D1 /* Assets.xcassets */,
+				2088AFF728879DA8001034D1 /* LaunchScreen.storyboard */,
+				2088B0102889E3A5001034D1 /* GoogleService-Info.plist */,
+				2088AFFA28879DA8001034D1 /* Info.plist */,
+			);
+			path = "Uber Clone app";
+			sourceTree = "<group>";
+		};
+		2088B00028879DCF001034D1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2088B00128879DE1001034D1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2088B00628879F33001034D1 /* LoginController.swift */,
+				2088B00A2889B0E4001034D1 /* RegistrationController.swift */,
+				2088B01A2889FB78001034D1 /* HomeController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2088B00328879DEA001034D1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2088B00E2889D69F001034D1 /* AuthButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2088B00428879DEC001034D1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		2088B00528879DEE001034D1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2088B0082887A700001034D1 /* Extensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2088B0172889F5D3001034D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2088AFE828879DA7001034D1 /* Uber Clone app */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2088AFFD28879DA8001034D1 /* Build configuration list for PBXNativeTarget "Uber Clone app" */;
+			buildPhases = (
+				2088AFE528879DA7001034D1 /* Sources */,
+				2088AFE628879DA7001034D1 /* Frameworks */,
+				2088AFE728879DA7001034D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Uber Clone app";
+			packageProductDependencies = (
+				2088B0132889E524001034D1 /* FirebaseAuth */,
+				2088B0152889E524001034D1 /* FirebaseFirestore */,
+				2088B0182889F5D3001034D1 /* FirebaseDatabase */,
+			);
+			productName = "Uber Clone app";
+			productReference = 2088AFE928879DA7001034D1 /* Uber Clone app.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2088AFE128879DA7001034D1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					2088AFE828879DA7001034D1 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 2088AFE428879DA7001034D1 /* Build configuration list for PBXProject "Uber Clone app" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2088AFE028879DA7001034D1;
+			packageReferences = (
+				2088B0122889E524001034D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			productRefGroup = 2088AFEA28879DA7001034D1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2088AFE828879DA7001034D1 /* Uber Clone app */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2088AFE728879DA7001034D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2088AFF928879DA8001034D1 /* LaunchScreen.storyboard in Resources */,
+				2088B0112889E3A5001034D1 /* GoogleService-Info.plist in Resources */,
+				2088AFF628879DA8001034D1 /* Assets.xcassets in Resources */,
+				2088AFF428879DA7001034D1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2088AFE528879DA7001034D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2088AFED28879DA7001034D1 /* AppDelegate.swift in Sources */,
+				2088B00F2889D69F001034D1 /* AuthButton.swift in Sources */,
+				2088B01B2889FB79001034D1 /* HomeController.swift in Sources */,
+				2088B00728879F33001034D1 /* LoginController.swift in Sources */,
+				2088AFEF28879DA7001034D1 /* SceneDelegate.swift in Sources */,
+				2088B00B2889B0E4001034D1 /* RegistrationController.swift in Sources */,
+				2088B0092887A700001034D1 /* Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2088AFF228879DA7001034D1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2088AFF328879DA7001034D1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2088AFF728879DA8001034D1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2088AFF828879DA8001034D1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2088AFFB28879DA8001034D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2088AFFC28879DA8001034D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2088AFFE28879DA8001034D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZC2RZX2F24;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Uber Clone app/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dauka.Uber-Clone-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2088AFFF28879DA8001034D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZC2RZX2F24;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Uber Clone app/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dauka.Uber-Clone-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2088AFE428879DA7001034D1 /* Build configuration list for PBXProject "Uber Clone app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2088AFFB28879DA8001034D1 /* Debug */,
+				2088AFFC28879DA8001034D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2088AFFD28879DA8001034D1 /* Build configuration list for PBXNativeTarget "Uber Clone app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2088AFFE28879DA8001034D1 /* Debug */,
+				2088AFFF28879DA8001034D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2088B0122889E524001034D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2088B0132889E524001034D1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2088B0122889E524001034D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		2088B0152889E524001034D1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2088B0122889E524001034D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		2088B0182889F5D3001034D1 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2088B0122889E524001034D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 2088AFE128879DA7001034D1 /* Project object */;
+}
