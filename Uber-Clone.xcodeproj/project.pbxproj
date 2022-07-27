@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		201FE10F2890BDB800F215DE /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201FE10E2890BDB800F215DE /* Trip.swift */; };
+		204B81C428908889003469F6 /* RideActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204B81C328908888003469F6 /* RideActionView.swift */; };
+		2055C7722891519E00D20FEB /* PickupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2055C7712891519E00D20FEB /* PickupController.swift */; };
 		2088AFED28879DA7001034D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088AFEC28879DA7001034D1 /* AppDelegate.swift */; };
 		2088AFEF28879DA7001034D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2088AFEE28879DA7001034D1 /* SceneDelegate.swift */; };
 		2088AFF428879DA7001034D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2088AFF228879DA7001034D1 /* Main.storyboard */; };
@@ -33,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		201FE10E2890BDB800F215DE /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		204B81C328908888003469F6 /* RideActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideActionView.swift; sourceTree = "<group>"; };
+		2055C7712891519E00D20FEB /* PickupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupController.swift; sourceTree = "<group>"; };
 		2088AFE928879DA7001034D1 /* Uber-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Uber-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2088AFEC28879DA7001034D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2088AFEE28879DA7001034D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 			children = (
 				20F8E5BA288C578B003AA49A /* User.swift */,
 				20F8E5C5288DA5CF003AA49A /* DriverAnnotation.swift */,
+				201FE10E2890BDB800F215DE /* Trip.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,6 +129,7 @@
 				2088B00628879F33001034D1 /* LoginController.swift */,
 				2088B00A2889B0E4001034D1 /* RegistrationController.swift */,
 				2088B01A2889FB78001034D1 /* HomeController.swift */,
+				2055C7712891519E00D20FEB /* PickupController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -133,6 +141,7 @@
 				20F8E5B2288B4991003AA49A /* LocationinputActivationView.swift */,
 				20F8E5B4288C0D65003AA49A /* LocationInputView.swift */,
 				20F8E5B6288C30D7003AA49A /* LocationCell.swift */,
+				204B81C328908888003469F6 /* RideActionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -248,12 +257,15 @@
 				2088B00F2889D69F001034D1 /* AuthButton.swift in Sources */,
 				2088B01B2889FB79001034D1 /* HomeController.swift in Sources */,
 				20F8E5B5288C0D65003AA49A /* LocationInputView.swift in Sources */,
+				201FE10F2890BDB800F215DE /* Trip.swift in Sources */,
+				2055C7722891519E00D20FEB /* PickupController.swift in Sources */,
 				20F8E5C6288DA5CF003AA49A /* DriverAnnotation.swift in Sources */,
 				20F8E5BB288C578B003AA49A /* User.swift in Sources */,
 				2088B00728879F33001034D1 /* LoginController.swift in Sources */,
 				2088AFEF28879DA7001034D1 /* SceneDelegate.swift in Sources */,
 				20F8E5C4288D7C6C003AA49A /* LocationHandler.swift in Sources */,
 				20F8E5B7288C30D7003AA49A /* LocationCell.swift in Sources */,
+				204B81C428908889003469F6 /* RideActionView.swift in Sources */,
 				2088B00B2889B0E4001034D1 /* RegistrationController.swift in Sources */,
 				20F8E5B9288C4DF6003AA49A /* Service.swift in Sources */,
 				20F8E5B3288B4991003AA49A /* LocationinputActivationView.swift in Sources */,

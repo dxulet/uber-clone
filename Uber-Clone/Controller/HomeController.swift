@@ -29,15 +29,42 @@ class HomeController: UIViewController {
     private let locationManager = LocationHandler.shared.locationManager
     
     private let inputActivationView = LocationInputActivationView()
+    private let rideActionView = RideActionView()
     private let locationInputView = LocationInputView()
     private let tableView = UITableView()
     private var searchResults = [MKPlacemark]()
     private final let locationInputViewHeight: CGFloat = 200
+    private final let rideActionViewHeight: CGFloat = 300
     private var actionButtonConfig = ActionButtonConfig()
     private var route: MKRoute?
     
     private var user: User? {
-        didSet { locationInputView.user = user }
+        didSet {
+            locationInputView.user = user
+            if user?.accountType == .passenger {
+                fetchDrivers()
+                configureLocationInputActivationView()
+                observeCurrentTrip()
+            } else {
+                observeTrips()
+            }
+        }
+    }
+    
+    private var trip: Trip? {
+        didSet {
+            guard let user = user else { return }
+
+            if user.accountType == .driver {
+                guard let trip = trip else { return }
+                let controller = PickupController(trip: trip)
+                controller.modalPresentationStyle = .fullScreen
+                controller.delegate = self
+                self.present(controller, animated: true, completion: nil)
+            } else {
+                print("DEBUG: Show ride action view for accepted trip..")
+            }
+        }
     }
     
     private lazy var actionButton: UIButton = {
@@ -56,6 +83,11 @@ class HomeController: UIViewController {
         enableLocationServices()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        guard let trip = trip else { return }
+
+    }
+    
     //MARK: - Selectors
     
     @objc func actionButtonPressed() {
@@ -69,11 +101,27 @@ class HomeController: UIViewController {
             UIView.animate(withDuration: 0.3) {
                 self.inputActivationView.alpha = 1
                 self.configureActionButton(config: .showMenu)
+                self.animateRideActionView(shouldShow: false)
             }
         }
     }
     
     //MARK: - API
+    
+    func observeCurrentTrip() {
+        Service.shared.observeCurrentTrip { trip in
+            self.trip = trip
+            
+            if trip.state == .accepted {
+                self.shouldPresentLoadingView(false)
+                
+                guard let driverUid = trip.driverUid else { return }
+                Service.shared.fetchUserData(uid: driverUid) { driver in
+                    self.animateRideActionView(shouldShow: true, config: .tripAccepted, user: driver)
+                }
+            }
+        }
+    }
     
     func fetchUserData() {
         guard let currendUid = Auth.auth().currentUser?.uid else { return }
@@ -102,10 +150,14 @@ class HomeController: UIViewController {
             
             if !driverIsVisible {
                 self.mapView.addAnnotation(annotation)
-                
             }
         }
-        
+    }
+    
+    func observeTrips() {
+        Service.shared.observeTrips { trip in
+            self.trip = trip
+        }
     }
     
     func checkIfUserIsLoggedIn() {
@@ -144,7 +196,6 @@ class HomeController: UIViewController {
     func configure() {
         configureUI()
         fetchUserData()
-        fetchDrivers()
     }
     
     fileprivate func configureActionButton(config: ActionButtonConfig) {
@@ -162,24 +213,26 @@ class HomeController: UIViewController {
     
     func configureUI() {
         configureMapView()
+        configureRideActionView()
         
         view.addSubview(actionButton)
         actionButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,
                             paddingTop: 16, paddingLeft: 20, width: 30, height: 30)
         
+        configureTableView()
+    }
+    
+    func configureLocationInputActivationView() {
         view.addSubview(inputActivationView)
         inputActivationView.centerX(inView: view)
         inputActivationView.setDimensions(height: 50, width: view.frame.width - 64)
         inputActivationView.anchor(top: actionButton.bottomAnchor, paddingTop: 32)
         inputActivationView.alpha = 0
-        
         inputActivationView.delegate = self
         
         UIView.animate(withDuration: 2) {
             self.inputActivationView.alpha = 1
         }
-        
-        configureTableView()
     }
     
     func configureMapView() {
@@ -206,6 +259,12 @@ class HomeController: UIViewController {
         }
     }
     
+    func configureRideActionView() {
+        view.addSubview(rideActionView)
+        rideActionView.delegate = self
+        rideActionView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: rideActionViewHeight)
+    }
+    
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -227,6 +286,29 @@ class HomeController: UIViewController {
             self.tableView.frame.origin.y = self.view.frame.height
             self.locationInputView.removeFromSuperview()
         }, completion: completion)
+    }
+    
+    func animateRideActionView(shouldShow: Bool, destination: MKPlacemark? = nil,
+                               config: RideActionViewConfiguration? = nil, user: User? = nil) {
+        let yOrigin = shouldShow ? self.view.frame.height - self.rideActionViewHeight : self.view.frame.height
+        
+        UIView.animate(withDuration: 0.3) {
+            self.rideActionView.frame.origin.y = yOrigin
+        }
+        
+        if shouldShow {
+            guard let config = config else { return }
+            
+            if let destination = destination {
+                rideActionView.destination = destination
+            }
+            
+            if let user = user {
+                rideActionView.user = user
+            }
+            
+            rideActionView.configureUI(withConfig: config)
+        }
     }
 }
 
@@ -325,8 +407,9 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
             self.mapView.selectAnnotation(annotation, animated: true)
             
             let annotations = self.mapView.annotations.filter({ !$0.isKind(of: DriverAnnotation.self) })
+            self.mapView.zoomToFit(annotations: annotations)
             
-            self.mapView.showAnnotations(annotations, animated: true)
+            self.animateRideActionView(shouldShow: true, destination: selectedPlacemark, config: .requestRide)
         }
     }
 }
@@ -380,6 +463,12 @@ private extension HomeController {
             mapView.removeOverlay(mapView.overlays[0])
         }
     }
+    
+    func centerMapOnUserLocation() {
+        guard let coordinate = locationManager?.location?.coordinate else { return }
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
+        mapView.setRegion(region, animated: true)
+    }
 }
 
 //MARK: - MKMapViewDelegate
@@ -404,5 +493,75 @@ extension HomeController: MKMapViewDelegate {
             return lineRenderer
         }
         return MKOverlayRenderer()
+    }
+}
+
+//MARK: - RideActionViewDelegate
+
+extension HomeController: RideActionViewDelegate {
+    func uploadTrip(_ view: RideActionView) {
+        guard let pickupCoordinates = locationManager?.location?.coordinate else { return }
+        guard let destinationCoordinates = view.destination?.coordinate else { return }
+        
+        shouldPresentLoadingView(true, message: "Finding you a ride...")
+        
+        Service.shared.uploadTrip(pickupCoordinates, destinationCoordinates) { err, ref in
+            if let err = err {
+                print("DEBUG: Failed to upload trip with \(err.localizedDescription)")
+                return
+            }
+            
+            UIView.animate(withDuration: 0.3) {
+                self.rideActionView.frame.origin.y = self.view.frame.height
+            }
+        }
+    }
+    
+    func cancelTrip() {
+        Service.shared.cancelTrip { error, ref in
+            if let error = error {
+                print("DEBUG: Error deleting trip with \(error.localizedDescription)")
+                return
+            }
+            
+            self.centerMapOnUserLocation()
+            self.animateRideActionView(shouldShow: false)
+            self.removeAnnotationsAndOverlays()
+            
+            self.actionButton.setImage(UIImage(named: "baseline_menu_black_36dp")?.withRenderingMode(.alwaysOriginal),
+                            for: .normal)
+            self.actionButtonConfig = .showMenu
+        }
+    }
+}
+
+//MARK: - PickupControllerDelegate
+
+extension HomeController: PickupControllerDelegate {
+    func didAcceptTrip(_ trip: Trip) {
+        let anno = MKPointAnnotation()
+        anno.coordinate = trip.pickupCoordinates
+        mapView.addAnnotation(anno)
+        mapView.selectAnnotation(anno, animated: true)
+        
+        let placemark = MKPlacemark(coordinate: trip.pickupCoordinates)
+        let mapItem = MKMapItem(placemark: placemark)
+        generatePolyline(toDestination: mapItem)
+        
+        mapView.zoomToFit(annotations: mapView.annotations)
+        
+        Service.shared.observeTripCancelled(trip: trip) {
+            self.removeAnnotationsAndOverlays()
+            self.animateRideActionView(shouldShow: false)
+            self.centerMapOnUserLocation()
+            self.presentAlertController(withTitle: "Oops!",
+                                        withMessage: "The passenger has decided to cancel this ride. Press OK to continue.")
+        }
+        
+        self.dismiss(animated: true) {
+            Service.shared.fetchUserData(uid: trip.passengerUid) { passenger in
+                self.animateRideActionView(shouldShow: true, config: .tripAccepted, user: passenger)
+            }
+        }
     }
 }
