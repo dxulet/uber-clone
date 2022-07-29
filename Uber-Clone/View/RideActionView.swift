@@ -11,13 +11,16 @@ import MapKit
 protocol RideActionViewDelegate: AnyObject {
     func uploadTrip(_ view: RideActionView)
     func cancelTrip()
+    func pickupPassenger()
+    func dropOffPassenger()
 }
 
 enum RideActionViewConfiguration {
     case requestRide
     case tripAccepted
+    case driverArrived
     case pickupPassenger
-    case inProgress
+    case tripInProgress
     case endTrip
     
     init() {
@@ -63,7 +66,9 @@ class RideActionView: UIView {
         }
     }
     
-    var config = RideActionViewConfiguration()
+    var config = RideActionViewConfiguration() {
+        didSet { configureUI(withConfig: config) }
+    }
     var buttonAction = ButtonAction()
     weak var delegate: RideActionViewDelegate?
     var user: User?
@@ -173,15 +178,15 @@ class RideActionView: UIView {
         case .getDirections:
             print("DEBUG: Handle get directions..")
         case .pickup:
-            print("DEBUG: Handle pickup..")
+            delegate?.pickupPassenger()
         case .dropOff:
-            print("DEBUG: Handle drop off..")
+            delegate?.dropOffPassenger()
         }
     }
     
     //MARK: - Helper Functions
     
-    func configureUI(withConfig config: RideActionViewConfiguration) {
+    private func configureUI(withConfig config: RideActionViewConfiguration) {
         switch config {
         case .requestRide:
             buttonAction = .requestRide
@@ -202,12 +207,20 @@ class RideActionView: UIView {
             infoViewLabel.text = String(user.fullName.first ?? "X")
             uberInfoLabel.text = user.fullName
             
+        case .driverArrived:
+            guard let user = user else { return }
+            
+            if user.accountType == .driver {
+                titleLabel.text = "Driver Has Arrived"
+                addressLabel.text = "Please meet driver at pickup location"
+            }
+            
         case .pickupPassenger:
             titleLabel.text = "Arrived At Passenger Location"
             buttonAction = .pickup
             actionButton.setTitle(buttonAction.description, for: .normal)
             
-        case .inProgress:
+        case .tripInProgress:
             guard let user = user else { return }
             if user.accountType == .driver {
                 actionButton.setTitle("TRIP IN PROGRESS", for: .normal)
@@ -228,6 +241,8 @@ class RideActionView: UIView {
                 buttonAction = .dropOff
                 actionButton.setTitle(buttonAction.description, for: .normal)
             }
+            
+            titleLabel.text = "Arrived at Destination"
         }
     }
 }
