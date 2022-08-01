@@ -15,6 +15,9 @@ extension UIColor {
     
     static let backgroundColor = UIColor.rgb(red: 25, green: 25, blue: 25)
     static let mainBlueTint = UIColor.rgb(red: 17, green: 154, blue: 257)
+    static let outlineStrokeColor = UIColor.rgb(red: 234, green: 46, blue: 111)
+    static let trackStrokeColor = UIColor.rgb(red: 56, green: 25, blue: 49)
+    static let pulsatingFillColor = UIColor.rgb(red: 86, green: 30, blue: 63)
 }
 
 extension UIView {
@@ -39,14 +42,14 @@ extension UIView {
         }
         
         if let sc = segmentedControl {
-                    imageView.anchor(top: view.topAnchor, left: view.leftAnchor,
-                                     paddingTop: -8, paddingLeft: 8, width: 24, height: 24)
-                    
-                    view.addSubview(sc)
-                    sc.anchor(left: view.leftAnchor, right: view.rightAnchor,
-                             paddingLeft: 8, paddingRight: 8)
-                    sc.centerY(inView: view, constant: 8)
-                }
+            imageView.anchor(top: view.topAnchor, left: view.leftAnchor,
+                             paddingTop: -8, paddingLeft: 8, width: 24, height: 24)
+            
+            view.addSubview(sc)
+            sc.anchor(left: view.leftAnchor, right: view.rightAnchor,
+                      paddingLeft: 8, paddingRight: 8)
+            sc.centerY(inView: view, constant: 8)
+        }
         
         let seperatorView = UIView()
         seperatorView.backgroundColor = .lightGray
@@ -143,13 +146,13 @@ extension UIApplication {
     var keyWindow: UIWindow? {
         // Get connected scenes
         return UIApplication.shared.connectedScenes
-            // Keep only active scenes, onscreen and visible to the user
+        // Keep only active scenes, onscreen and visible to the user
             .filter { $0.activationState == .foregroundActive }
-            // Keep only the first `UIWindowScene`
+        // Keep only the first `UIWindowScene`
             .first(where: { $0 is UIWindowScene })
-            // Get its associated windows
+        // Get its associated windows
             .flatMap({ $0 as? UIWindowScene })?.windows
-            // Finally, keep only the key window
+        // Finally, keep only the key window
             .first(where: \.isKeyWindow)
     }
 }
@@ -171,7 +174,7 @@ extension MKPlacemark {
 extension MKMapView {
     func zoomToFit(annotations: [MKAnnotation]) {
         var zoomRect = MKMapRect.null
-
+        
         annotations.forEach { annotation in
             let annotationPoint = MKMapPoint(annotation.coordinate)
             let pointRect = MKMapRect(x: annotationPoint.x, y: annotationPoint.y,
@@ -238,7 +241,7 @@ extension UIViewController {
                     } completion: { _ in
                         subview.removeFromSuperview()
                     }
-
+                    
                 }
             }
         }

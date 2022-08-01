@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import MapKit
+import Foundation
 
 private let reuseIdentifier = "LocationCell"
 private let annotationIdentifier = "DriverAnnotation"
@@ -26,6 +27,10 @@ private enum AnnotationType: String {
     case destination
 }
 
+protocol HCDelegate: AnyObject {
+    func handleMenuToggle()
+}
+
 class HomeController: UIViewController {
     
     //MARK: - Properties
@@ -38,18 +43,22 @@ class HomeController: UIViewController {
     private let locationInputView = LocationInputView()
     private let tableView = UITableView()
     private var searchResults = [MKPlacemark]()
+    private var savedLocations = [MKPlacemark]()
     private final let locationInputViewHeight: CGFloat = 200
     private final let rideActionViewHeight: CGFloat = 300
     private var actionButtonConfig = ActionButtonConfig()
     private var route: MKRoute?
     
-    private var user: User? {
+    weak var delegate: HCDelegate?
+    
+    var user: User? {
         didSet {
             locationInputView.user = user
             if user?.accountType == .passenger {
                 fetchDrivers()
                 configureLocationInputActivationView()
                 observeCurrentTrip()
+                configureSavedUserLocations()
             } else {
                 observeTrips()
             }
@@ -84,13 +93,8 @@ class HomeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkIfUserIsLoggedIn()
         enableLocationServices()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        guard let trip = trip else { return }
-
+        configureUI()
     }
     
     //MARK: - Selectors
@@ -98,7 +102,7 @@ class HomeController: UIViewController {
     @objc func actionButtonPressed() {
         switch actionButtonConfig {
         case .showMenu:
-            print("DEBUG: Handle show menu")
+            delegate?.handleMenuToggle()
         case .dismissActionView:
             removeAnnotationsAndOverlays()
             mapView.showAnnotations(mapView.annotations, animated: true)
@@ -122,6 +126,16 @@ class HomeController: UIViewController {
             switch state {
             case .requested:
                 break
+            case .denied:
+                self.shouldPresentLoadingView(false)
+                self.presentAlertController(withTitle: "Oops!",
+                                            withMessage: "It looks like we couldn't find you a driver. Please try again.")
+                PassengerService.shared.deleteTrip { err, ref in
+                    self.centerMapOnUserLocation()
+                    self.configureActionButton(config: .showMenu)
+                    self.inputActivationView.alpha = 1
+                    self.removeAnnotationsAndOverlays()
+                }
             case .accepted:
                 self.shouldPresentLoadingView(false)
                 self.removeAnnotationsAndOverlays()
@@ -208,52 +222,7 @@ class HomeController: UIViewController {
             }
         }
     
-    //MARK: - Shared API
-    
-    func fetchUserData() {
-        guard let currendUid = Auth.auth().currentUser?.uid else { return }
-        Service.shared.fetchUserData(uid: currendUid) { user in
-            self.user = user
-        }
-    }
-    
-    func checkIfUserIsLoggedIn() {
-        if Auth.auth().currentUser?.uid == nil {
-            DispatchQueue.main.async {
-                let nav = UINavigationController(rootViewController: LoginController())
-                if #available(iOS 13.0, *) {
-                    nav.isModalInPresentation = true
-                }
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
-            }
-        } else {
-            configure()
-        }
-    }
-    
-    func signOut() {
-        do {
-            try Auth.auth().signOut()
-            DispatchQueue.main.async {
-                let nav = UINavigationController(rootViewController: LoginController())
-                if #available(iOS 13.0, *) {
-                    nav.isModalInPresentation = true
-                }
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
-            }
-        } catch {
-            print("DEBUG: Error signing out")
-        }
-    }
-    
     //MARK: - Helper Functions
-    
-    func configure() {
-        configureUI()
-        fetchUserData()
-    }
     
     fileprivate func configureActionButton(config: ActionButtonConfig) {
         switch config {
@@ -265,6 +234,29 @@ class HomeController: UIViewController {
             actionButton.setImage(UIImage(named:                  "baseline_arrow_back_black_36dp")?.withRenderingMode(.alwaysOriginal),
                                   for: .normal)
             actionButtonConfig = .dismissActionView
+        }
+    }
+    
+    func configureSavedUserLocations() {
+        guard let user = user else { return }
+        savedLocations.removeAll()
+        
+        if let homeLocation = user.homeLocation {
+            geocodeAddressString(address: homeLocation)
+        }
+        
+        if let workLocation = user.workLocation {
+            geocodeAddressString(address: workLocation)
+        }
+    }
+    
+    func geocodeAddressString(address: String) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { placemarks, err in
+            guard let clPlacemark = placemarks?.first else { return }
+            let placemark = MKPlacemark(placemark: clPlacemark)
+            self.savedLocations.append(placemark)
+            self.tableView.reloadData()
         }
     }
     
@@ -287,7 +279,7 @@ class HomeController: UIViewController {
         inputActivationView.alpha = 0
         inputActivationView.delegate = self
         
-        UIView.animate(withDuration: 2) {
+        UIView.animate(withDuration: 1) {
             self.inputActivationView.alpha = 1
         }
     }
@@ -458,18 +450,22 @@ extension HomeController: LocationInputViewDelegate {
 extension HomeController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Test"
+        return section == 0 ? "Saved Locations" : "Search Results"
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 2 : searchResults.count
+        return section == 0 ? savedLocations.count : searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! LocationCell
+        
+        if indexPath.section == 0 {
+            cell.placemark = savedLocations[indexPath.row]
+        }
         
         if indexPath.section == 1 {
             cell.placemark = searchResults[indexPath.row]
@@ -478,7 +474,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedPlacemark = searchResults[indexPath.row]
+        let selectedPlacemark = indexPath.section == 0 ? savedLocations[indexPath.row] : searchResults[indexPath.row]
         
         configureActionButton(config: .dismissActionView)
         
