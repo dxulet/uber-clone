@@ -148,6 +148,7 @@ extension LocationInputView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let query = textField.text else { return false }
         delegate?.executeSearch(query: query)
+        self.endEditing(true)
         return true
     }
 }
