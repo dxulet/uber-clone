@@ -1,5 +1,5 @@
 # iOS Uber Clone
-Uber Clone app with Swift, AutoLayout, Firebase, & Geofire
+Uber Clone app using Swift, AutoLayout, Firebase, MapKit, & Geofire
 
 This app allows passengers to request a ride, which will be sent to drivers who use their own cars.
 
