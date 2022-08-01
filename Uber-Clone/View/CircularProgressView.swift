@@ -71,7 +71,7 @@ class CircularProgressView: UIView {
         pulsatingLayer.add(animation, forKey: "pulsing")
     }
     
-    func setProgressWithAnimation(duration: TimeInterval, value: Float, completion: @escaping() -> Void) {
+    func setProgressWithAnimation(duration: TimeInterval, value: Float, completion: (() -> Void)?) {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)
         
